@@ -1,0 +1,2 @@
+CREATE VIEW PERFIL_VIEW AS
+SELECT PERFIL.id, PERFIL.nombre, PERFIL.apellido, PERFIL.fecha_nacimiento, PERFIL.correo, PERFIL.telefono, PERFIL.genero, PERFIL.foto, PERFIL.descripcion, PERFIL.rol, PERFIL.fecha_registro, PERFIL.ultima_conexion, PERFIL.verificado
