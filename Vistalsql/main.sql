@@ -3,7 +3,6 @@
 CREATE TABLE Usuario (
     id INT PRIMARY KEY,
     nombre_usuario VARCHAR(50),
-    correo VARCHAR(50) UNIQUE
     seguidores INT,
     siguiendo INT,
     id_artistas_principales INT,
@@ -17,8 +16,9 @@ CREATE TABLE ARTISTA (
     id INT PRIMARY KEY,
     nombre VARCHAR(50),
     descripcion VARCHAR(100),
-    oyenetes_mensuales INT,
+    oyentes_mensuales INT,
     verificado BOOLEAN,
+    siguiendo BOOLEAN,
 );
 
 -- Tabla Canción
@@ -27,6 +27,7 @@ CREATE TABLE Cancion (
     nombre VARCHAR(50),
     duracion INT,
     veces_escuchada INT,
+    me_gusta BOOLEAN,
     id_album INT,
     FOREIGN KEY (id_album) REFERENCES Album(id)
 );
@@ -56,15 +57,8 @@ CREATE TABLE PLAYLIST (
     fecha_creacion DATE,
     es_publica BOOLEAN,
     id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id),
-);
-
--- Tabla Playlist_Cancion
-CREATE TABLE PLAYLIST_CANCION (
-    id_playlist INT,
     id_cancion INT,
-    PRIMARY KEY (id_playlist, id_cancion),
-    FOREIGN KEY (id_playlist) REFERENCES Playlist(id),
+    FOREIGN KEY (id_usuario) REFERENCES Usuario(id),
     FOREIGN KEY (id_cancion) REFERENCES Cancion(id)
 );
 
@@ -73,7 +67,9 @@ CREATE TABLE PODCAST (
     id INT PRIMARY KEY,
     nombre VARCHAR(50),
     seguido BOOLEAN,
-    descripcion VARCHAR(100),
+    descripcion VARCHAR(255),
+    calificacion FLOAT DEFAULT 0.0,
+    CHECK (calificacion >= 0 AND calificacion <= 5),
     id_canal INT,
     FOREIGN KEY (id_canal) REFERENCES Canal(id)
 );
@@ -108,9 +104,9 @@ CREATE TABLE PRESENTADOR (
 CREATE TABLE GENERO (
     id INT PRIMARY KEY,
     nombre VARCHAR(50),
-    id_album INT,
-    FOREIGN KEY (id_album) REFERENCES Album(id)
-);
+    id_playlist INT,
+    FOREIGN KEY (id_playlist) REFERENCES Playlist(id)
+)
 
 CREATE TABLE GENERO_PODCAST (
     id_genero INT,
@@ -119,3 +115,4 @@ CREATE TABLE GENERO_PODCAST (
     FOREIGN KEY (id_genero) REFERENCES Genero(id),
     FOREIGN KEY (id_podcast) REFERENCES Podcast(id)
 );
+
