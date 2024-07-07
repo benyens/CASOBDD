@@ -1,2 +1,22 @@
 CREATE VIEW PERFIL_VIEW AS
-SELECT PERFIL.id, PERFIL.nombre, PERFIL.apellido, PERFIL.fecha_nacimiento, PERFIL.correo, PERFIL.telefono, PERFIL.genero, PERFIL.foto, PERFIL.descripcion, PERFIL.rol, PERFIL.fecha_registro, PERFIL.ultima_conexion, PERFIL.verificado
+SELECT 
+    USUARIO.id,
+    USUARIO.nombre_usuario,
+    USUARIO.seguidores,
+    USUARIO.siguiendo,
+    PLAYLIST.id,
+    PLAYLIST.USUARIO_id,
+    CANCION.id,
+    PLAYLIST.es_publica,
+    CANCION.nombre,
+    CANCION.ARTISTA_id,
+    ARTISTA.id,
+    ARTISTA.nombre
+FROM 
+    USUARIO
+LEFT JOIN 
+    PLAYLIST ON USUARIO.id = PLAYLIST.USUARIO_id
+LEFT JOIN 
+    CANCION ON PLAYLIST.id = CANCION.PLAYLIST_id AND PLAYLIST.USUARIO_id = CANCION.USUARIO_id
+LEFT JOIN 
+    ARTISTA ON CANCION.ARTISTA_id = ARTISTA.id AND USUARIO.id = ARTISTA.USUARIO_id;

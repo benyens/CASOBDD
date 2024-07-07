@@ -1,2 +1,12 @@
 CREATE VIEW BUSQUEDA_VIEW AS
-SELECT CANCION.id, CANCION.nombre, CANCION.duracion, ARTISTA.nombre AS artista
+SELECT
+    USUARIO.id,
+    USUARIO.nombre_usuario,
+    BUSQUEDA.id,
+    BUSQUEDA.titulo,
+    CATEGORIA.id,
+    CATEGORIA.nombre,
+    BUSQUEDA.categoria_id
+FROM USUARIO 
+JOIN BUSQUEDA ON USUARIO.id = BUSQUEDA.usuario_id
+JOIN CATEGORIA ON BUSQUEDA.categoria_id = CATEGORIA.id;
